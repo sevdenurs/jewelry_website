@@ -1,19 +1,27 @@
-interface Product {
-  id: number;
+import Image from "next/image";
+
+interface ProductCardProps {
   name: string;
   price: number;
+  image: string;
 }
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({ name, price, image }: ProductCardProps) {
   return (
-    <div className="border rounded-lg shadow-sm hover:shadow-md transition p-6 flex flex-col items-center">
-      <div className="bg-gray-100 w-32 h-32 rounded mb-4 flex items-center justify-center">
-        <span className="text-gray-400">📦</span>
+    <div className="group cursor-pointer">
+      <div className="overflow-hidden rounded-lg aspect-square">
+        <Image
+          src={image}
+          alt={name}
+          width={400}
+          height={400}
+          className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+        />
       </div>
-      <h2 className="text-lg font-semibold">{product.name}</h2>
-      <p className="text-gray-600">{product.price} TL</p>
-      <button className="mt-3 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-        Satın Al
+      <h3 className="mt-2 text-sm text-gray-700">{name}</h3>
+      <p className="text-gray-900 font-semibold">{price} ₺</p>
+      <button className="mt-2 w-full rounded-md bg-black text-white py-2 text-sm transition hover:bg-gray-800">
+        Sepete Ekle
       </button>
     </div>
   );
