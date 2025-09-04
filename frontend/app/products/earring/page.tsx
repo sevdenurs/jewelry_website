@@ -1,8 +1,24 @@
+"use client";
+import { useEffect, useState } from "react";
 import ProductCard from "@/components/ProductCard";
-import { products, Product } from "../../data/products";
+
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+  category: "ring" | "necklace" | "earring" | "bracelet";
+}
 
 export default function EarringPage() {
-  const earrings = products.filter((p: Product) => p.category === "earring");
+  const [earrings, setEarrings] = useState<Product[]>([]);
+
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products?category=earring`)
+      .then((res) => res.json())
+      .then((data) => setEarrings(data.items ?? data))
+      .catch((e) => console.error("Earring fetch error:", e));
+  }, []);
 
   return (
     <section className="max-w-6xl mx-auto px-4 py-16">

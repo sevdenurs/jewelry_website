@@ -1,14 +1,30 @@
+"use client";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import ProductCard from "@/components/ProductCard";
 import Footer from "@/components/Footer";
+import Newsletter from "@/components/Newsletter";
+import Prefer from "@/components/Prefer";
+import BestSellers from "@/components/BestSellers";
+
+
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+  category: "ring" | "necklace" | "earring" | "bracelet";
+}
 
 export default function HomePage() {
-  const products = [
-    { name: "Minimal Yüzük", price: 750, image: "/images/photo1.jpg" },
-    { name: "Altın Kolye", price: 1200, image: "/images/photo2.jpg" },
-    { name: "Gümüş Küpe", price: 550, image: "/images/photo3.jpg" },
-    { name: "Pırlanta Bileklik", price: 2200, image: "/images/photo4.jpg" },
-  ];
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products?limit=4`)
+      .then((res) => res.json())
+      .then((data) => setProducts(data.items ?? data)) // API düz dizi dönerse fallback
+      .catch((err) => console.error("Home products fetch error:", err));
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -34,18 +50,21 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* New Arrivals */}
+      {/* Yeni Gelenler */}
       <section className="max-w-6xl mx-auto px-4 py-16 bg-white">
         <h2 className="text-2xl font-serif font-semibold text-gray-800 mb-8">
           Yeni Gelenler
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {products.map((p, idx) => (
-            <ProductCard key={idx} {...p} />
+          {products.map((p) => (
+            <ProductCard key={p.id} {...p} />
           ))}
         </div>
       </section>
+      <BestSellers />
+      <Prefer />
 
+      <Newsletter />
     </div>
   );
 }
