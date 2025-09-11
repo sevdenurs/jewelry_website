@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 
 dotenv.config({ path: path.join(__dirname, "..", ".env") });
 
-console.log("✅ ENV -> DB_USER:", process.env.DB_USER); // debug
+console.log("ENV -> DB_USER:", process.env.DB_USER); // debug
 
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
