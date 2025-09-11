@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import Newsletter from "@/components/Newsletter";
 import Prefer from "@/components/Prefer";
 import BestSellers from "@/components/BestSellers";
-
+import Login from "@/app/login/page";
 
 interface Product {
   id: number;
