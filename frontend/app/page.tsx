@@ -2,11 +2,9 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import ProductCard from "@/components/ProductCard";
-import Footer from "@/components/Footer";
 import Newsletter from "@/components/Newsletter";
 import Prefer from "@/components/Prefer";
 import BestSellers from "@/components/BestSellers";
-import Login from "@/app/login/page";
 
 interface Product {
   id: number;
@@ -56,9 +54,9 @@ export default function HomePage() {
           Yeni Gelenler
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {products.map((p) => (
-            <ProductCard key={p.id} {...p} />
-          ))}
+{products.map((p) => (
+  <ProductCard key={p.id} {...p} />
+))}
         </div>
       </section>
       <BestSellers />
@@ -68,3 +66,4 @@ export default function HomePage() {
     </div>
   );
 }
+
